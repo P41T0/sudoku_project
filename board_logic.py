@@ -2,6 +2,7 @@ import random
 class game_logic:
     def __init__(self):
         self.board = [[0 for _ in range(9)] for _ in range(9)]
+        self.original_board = [[0 for _ in range(9)] for _ in range(9)]
         self.solution_board = [[0 for _ in range(9)] for _ in range(9)]
         self.cells_to_erase = 0
 
@@ -27,12 +28,11 @@ class game_logic:
                     for valor in nums:
                         if self.is_valid(fila, columna, valor):
                             self.board[fila][columna] = valor
+                            self.solution_board[fila][columna] = valor
                             if self.solve_board():
                                 return True
                             self.board[fila][columna] = 0  # backtrack
                     return False  # No es pot posar res vàlid aquí
-        self.solution_board = self.board.copy()
-        print(self.solution_board)
         return True  # Tot el tauler està ple
 
     def erase_cells(self):
@@ -42,6 +42,11 @@ class game_logic:
             if self.board[fila][columna] != "":
                 self.board[fila][columna] = ""
                 self.cells_to_erase -= 1
+    
+    def set_original_board(self):
+        for r in range(9):
+            for c in range(9):
+                self.original_board[r][c] = self.board[r][c]
     
     def set_difficulty(self, difficulty):
         if(difficulty == 1):
@@ -54,6 +59,6 @@ class game_logic:
     def fill_board(self):
         self.board = [[0 for _ in range(9)] for _ in range(9)]
         self.solve_board()
-        print(self.board)
         self.erase_cells()
-        return self.board
+        self.set_original_board()
+        return self.board, self.original_board, self.solution_board

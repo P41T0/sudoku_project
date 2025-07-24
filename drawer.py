@@ -23,7 +23,7 @@ def drawSquare(screen, color):
             wide if k % 3 == 0 else 1
         )
 
-def drawValues(t, screen, color):
+def drawValues(t, t_original, screen, color_original, color_new):
     fontV = pygame.font.Font('freesansbold.ttf', 32)
     margin_left = 80
     margin_top = 80
@@ -31,18 +31,22 @@ def drawValues(t, screen, color):
     for r in range(9):
         for c in range(9):
             value = str(t[r][c]) if t[r][c] else ""
-            text = fontV.render(value, True, color)
+            if(str(t_original[r][c]) != ""):
+                text = fontV.render(value, True, color_original)
+            else:
+                text = fontV.render(value, True, color_new)
             text_rect = text.get_rect(center=(
                 margin_left + c * cell_size + cell_size // 2,
                 margin_top + r * cell_size + cell_size // 2
             ))
             screen.blit(text, text_rect)
 
-def draw(tauler):
+def draw(tauler, tauler_original):
     os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (1100, 120)
     pygame.init()
 
     BLACK = (0, 0, 0)
+    GRAY = (220,220,220)
     WHITE = (255, 255, 255)
     GREEN = (0, 255, 0)
 
@@ -67,7 +71,7 @@ def draw(tauler):
         screen.blit(text, text_rect)
 
     drawSquare(screen, GREEN)
-    drawValues(tauler, screen, BLACK)
+    drawValues(tauler, tauler_original, screen, BLACK, GRAY)
 
     pygame.display.flip()
-    input("Prem Enter per sortir...")
+    
