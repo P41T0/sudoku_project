@@ -75,3 +75,13 @@ class game_logic:
     def add_value(self, row_index, col_index, cel_value):
         self.board[row_index][col_index] = cel_value
         draw(self.board, self.original_board)
+    
+    def get_hint(self):
+        while True:
+            row = random.randint(0, 8)
+            col = random.randint(0, 8)
+            if self.original_board[row][col] == "":
+                if self.board[row][col] != self.solution_board[row][col]:
+                    self.board[row][col] = self.solution_board[row][col]
+                    break
+        draw(self.board, self.original_board)

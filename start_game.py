@@ -24,15 +24,20 @@ class Start_game:
         input("prem una tecla per a sortir")
 
     def select_action(self):
-        print("Selecciona una acció:\n1: Afegir número\n2: Eliminar número")
+        print("Selecciona una acció:\n1: Afegir número\n2: Eliminar número\n3: Pista")
         while True:
             action = input("Introdueix l'acció: ")
-            if action in ["1", "2"]:
+            if action in ["1", "2", "3"]:
                 break
         if action == "1":
             self.add_value()
         elif action == "2":
             self.delete_value()
+        elif action == "3":
+            self.get_hint()
+        
+    def get_hint(self):
+        self.game_logic.get_hint()
 
     def delete_value(self):
         while True:
