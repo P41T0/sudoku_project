@@ -1,5 +1,6 @@
 from board_logic import game_logic
 
+
 class Start_game:
     def __init__(self):
         self.game_logic = game_logic()
@@ -36,7 +37,7 @@ class Start_game:
     def delete_value(self):
         while True:
             row = input("Introdueix el valor de la fila (A-I): ")
-            if (len(row) == 1 and row.upper() in self.row_values):
+            if len(row) == 1 and row.upper() in self.row_values:
                 row_index = self.row_values.index(row.upper())
                 break
         while True:
@@ -50,13 +51,13 @@ class Start_game:
                     print("valor incorrecte")
             except:
                 print("valor incorrecte")
-        if(self.game_logic.check_position(row_index, col_index)):
+        if self.game_logic.check_position(row_index, col_index):
             self.game_logic.add_value("")
 
     def add_value(self):
         while True:
             row = input("Introdueix el valor de la fila (A-I): ")
-            if (len(row) == 1 and row.upper() in self.row_values):
+            if len(row) == 1 and row.upper() in self.row_values:
                 row_index = self.row_values.index(row.upper())
                 break
         while True:
@@ -70,7 +71,7 @@ class Start_game:
                     print("valor incorrecte")
             except:
                 print("valor incorrecte")
-        if(self.game_logic.check_position(row_index, col_index)):
+        if self.game_logic.check_position(row_index, col_index):
             while True:
                 cel_value = input("Introdueix el valor de la cel·la (1-9): ")
                 try:
@@ -82,5 +83,5 @@ class Start_game:
                 except:
                     print("valor incorrecte")
             self.game_logic.add_value(row_index, col_index, cel_value)
-        else: 
+        else:
             print("Has intentat modificar un valor ja existent")

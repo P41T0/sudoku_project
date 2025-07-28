@@ -1,6 +1,7 @@
 import pygame
 import os
 
+
 def drawSquare(screen, color):
     # Dibuixa una taula 9x9
     margin_left = 80
@@ -10,43 +11,49 @@ def drawSquare(screen, color):
     for k in range(10):
         # Files horitzontals
         pygame.draw.line(
-            screen, color,
+            screen,
+            color,
             [margin_left, margin_top + k * cell_size],
             [margin_left + 9 * cell_size, margin_top + k * cell_size],
-            wide if k % 3 == 0 else 1
+            wide if k % 3 == 0 else 1,
         )
         # Columnes verticals
         pygame.draw.line(
-            screen, color,
+            screen,
+            color,
             [margin_left + k * cell_size, margin_top],
             [margin_left + k * cell_size, margin_top + 9 * cell_size],
-            wide if k % 3 == 0 else 1
+            wide if k % 3 == 0 else 1,
         )
 
+
 def drawValues(t, t_original, screen, color_original, color_new):
-    fontV = pygame.font.Font('freesansbold.ttf', 32)
+    fontV = pygame.font.Font("freesansbold.ttf", 32)
     margin_left = 80
     margin_top = 80
     cell_size = 50
     for r in range(9):
         for c in range(9):
             value = str(t[r][c]) if t[r][c] else ""
-            if(str(t_original[r][c]) != ""):
+            if str(t_original[r][c]) != "":
                 text = fontV.render(value, True, color_original)
             else:
                 text = fontV.render(value, True, color_new)
-            text_rect = text.get_rect(center=(
-                margin_left + c * cell_size + cell_size // 2,
-                margin_top + r * cell_size + cell_size // 2
-            ))
+            text_rect = text.get_rect(
+                center=(
+                    margin_left + c * cell_size + cell_size // 2,
+                    margin_top + r * cell_size + cell_size // 2,
+                )
+            )
             screen.blit(text, text_rect)
 
+
 def draw(tauler, tauler_original):
-    os.environ['SDL_VIDEO_WINDOW_POS'] = "%d,%d" % (1100, 120)
+    os.environ["SDL_VIDEO_WINDOW_POS"] = "%d,%d" % (1100, 120)
     pygame.init()
 
     BLACK = (0, 0, 0)
-    GRAY = (220,220,220)
+    GRAY = (220, 220, 220)
     WHITE = (255, 255, 255)
     GREEN = (0, 255, 0)
 
@@ -56,7 +63,7 @@ def draw(tauler, tauler_original):
 
     screen.fill(WHITE)
 
-    font = pygame.font.Font('freesansbold.ttf', 20)
+    font = pygame.font.Font("freesansbold.ttf", 20)
     # Números centrats amb les columnes
     for c in range(9):
         num = str(c + 1)
@@ -65,7 +72,7 @@ def draw(tauler, tauler_original):
         screen.blit(text, text_rect)
     # Lletres centrades amb les files
     for r in range(9):
-        letter = chr(ord('A') + r)
+        letter = chr(ord("A") + r)
         text = font.render(letter, True, BLACK, WHITE)
         text_rect = text.get_rect(center=(60, 80 + r * 50 + 25))
         screen.blit(text, text_rect)
@@ -74,4 +81,3 @@ def draw(tauler, tauler_original):
     drawValues(tauler, tauler_original, screen, BLACK, GRAY)
 
     pygame.display.flip()
-    

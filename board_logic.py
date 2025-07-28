@@ -1,6 +1,7 @@
 import random
 from drawer import draw
 
+
 class game_logic:
     def __init__(self):
         self.board = [[0 for _ in range(9)] for _ in range(9)]
@@ -39,32 +40,32 @@ class game_logic:
 
     def erase_cells(self):
         while self.cells_to_erase > 0:
-            fila = random.randint(0,8)
-            columna = random.randint(0,8)
+            fila = random.randint(0, 8)
+            columna = random.randint(0, 8)
             if self.board[fila][columna] != "":
                 self.board[fila][columna] = ""
                 self.cells_to_erase -= 1
-    
+
     def set_original_board(self):
         for r in range(9):
             for c in range(9):
                 self.original_board[r][c] = self.board[r][c]
-    
+
     def set_difficulty(self, difficulty):
-        if(difficulty == 1):
+        if difficulty == 1:
             self.cells_to_erase = 36
-        elif(difficulty == 2):
+        elif difficulty == 2:
             self.cells_to_erase = 45
-        elif(difficulty == 3):
+        elif difficulty == 3:
             self.cells_to_erase = 54
-    
+
     def fill_board(self):
         self.board = [[0 for _ in range(9)] for _ in range(9)]
         self.solve_board()
         self.erase_cells()
         self.set_original_board()
         draw(self.board, self.original_board)
-    
+
     def draw_board(self):
         draw(self.board, self.original_board)
 
