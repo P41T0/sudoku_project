@@ -1,4 +1,6 @@
 import random
+from drawer import draw
+
 class game_logic:
     def __init__(self):
         self.board = [[0 for _ in range(9)] for _ in range(9)]
@@ -32,8 +34,8 @@ class game_logic:
                             if self.solve_board():
                                 return True
                             self.board[fila][columna] = 0  # backtrack
-                    return False  # No es pot posar res vàlid aquí
-        return True  # Tot el tauler està ple
+                    return False
+        return True
 
     def erase_cells(self):
         while self.cells_to_erase > 0:
@@ -61,4 +63,14 @@ class game_logic:
         self.solve_board()
         self.erase_cells()
         self.set_original_board()
-        return self.board, self.original_board, self.solution_board
+        draw(self.board, self.original_board)
+    
+    def draw_board(self):
+        draw(self.board, self.original_board)
+
+    def check_position(self, row_index, col_index):
+        return self.original_board[row_index][col_index] == ""
+
+    def add_value(self, row_index, col_index, cel_value):
+        self.board[row_index][col_index] = cel_value
+        draw(self.board, self.original_board)
