@@ -8,7 +8,6 @@ class Start_game:
         self.cells_to_fill = 0
         self.num_moves = 0
         self.row_values = ["A", "B", "C", "D", "E", "F", "G", "H", "I"]
-        self.won = False
 
     def select_difficulty(self):
         print("Selecciona la dificultat:\n1: Fàcil\n2: Mitja\n3: Difícil")
@@ -18,8 +17,8 @@ class Start_game:
             input_difficult = input("Introdueix la dificultat: ")
         self.game_logic.set_difficulty(int(input_difficult))
         self.game_logic.fill_board()
-        won = False
-        while not won:
+
+        while self.game_logic.get_won() == False:
             self.select_action()
         input("prem una tecla per a sortir")
 
@@ -35,7 +34,7 @@ class Start_game:
             self.delete_value()
         elif action == "3":
             self.get_hint()
-        
+
     def get_hint(self):
         self.game_logic.get_hint()
 

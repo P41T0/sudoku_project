@@ -8,6 +8,7 @@ class game_logic:
         self.original_board = [[0 for _ in range(9)] for _ in range(9)]
         self.solution_board = [[0 for _ in range(9)] for _ in range(9)]
         self.cells_to_erase = 0
+        self.won = False
 
     def is_valid(self, fila, columna, valor):
         if valor in self.board[fila]:
@@ -75,13 +76,27 @@ class game_logic:
     def add_value(self, row_index, col_index, cel_value):
         self.board[row_index][col_index] = cel_value
         draw(self.board, self.original_board)
-    
+        print("entro aqui")
+
+    def get_won(self):
+        self.check_win()
+        return self.won
+
+    def check_win(self):
+        print("entro")
+        for r in range(0, 9):
+            for c in range(0, 9):
+                if self.board[r][c] != self.solution_board[r][c]:
+                    return
+        self.won = True
+
     def get_hint(self):
-        while True:
-            row = random.randint(0, 8)
-            col = random.randint(0, 8)
-            if self.original_board[row][col] == "":
-                if self.board[row][col] != self.solution_board[row][col]:
-                    self.board[row][col] = self.solution_board[row][col]
-                    break
-        draw(self.board, self.original_board)
+        if self.won == False:
+            while True:
+                row = random.randint(0, 8)
+                col = random.randint(0, 8)
+                if self.original_board[row][col] == "":
+                    if self.board[row][col] != self.solution_board[row][col]:
+                        self.board[row][col] = self.solution_board[row][col]
+                        break
+            draw(self.board, self.original_board)
